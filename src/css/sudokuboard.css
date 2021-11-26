@@ -1,0 +1,25 @@
+table {
+    margin:1em auto;
+  }
+  .sudoku{
+    height:30px;
+    width:30px;
+    border:0.2px solid;
+    color:black;
+    text-align:center;
+  }
+  td:first-child {
+    border-left:solid;
+  }
+  td:nth-child(3n) {
+    border-right:solid ;
+  }
+  
+  tr:nth-child(3n) {
+    border-bottom:solid ;
+  }
+  
+  tr:first-child{
+    border-top:solid ;
+  }
+  
