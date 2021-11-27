@@ -2,8 +2,8 @@ table {
     margin:1em auto;
   }
   .sudoku{
-    height:30px;
-    width:30px;
+    height:35px;
+    width:35px;
     border:0.2px solid;
     color:black;
     text-align:center;

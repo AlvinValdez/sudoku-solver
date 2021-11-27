@@ -1,3 +1,101 @@
+
+class sudoku {
+    constructor(items) {
+        this.items = items
+    }
+
+    isRowValid(num, row, col) {
+        //Check if row includes the number about to be entered into square
+        return !this.items[row].includes(num);
+    }
+    isColumnValid(num, row, col) {
+
+        //Check if column has the number about to be entered
+        for (let i = 0; this.items.length > i; i++) {
+
+
+
+            if (this.items[i][col] == num) {
+                return false
+            }
+
+        }
+        return true
+    }
+    isSubSquareValid(num, row, col) {
+        var newcol = 0;
+        var newrow = 0;
+
+        if (col % 3 != 0) {
+            newcol = col - (col % 3)
+        } else {
+
+            var newcol = col;
+        }
+
+        if (row % 3 != 0) {
+            newrow = row - (row % 3)
+        } else {
+            var newrow = row;
+        }
+        var i = newrow
+        var j = newcol
+        for (i = newrow; i < newrow + 3; i++) {
+            for (j = newcol; j < newcol + 3; j++) {
+
+                if (this.items[i][j] == num) {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+    printSudoku() {
+        let text= " "
+        text+='           -----------------------------\n'
+        for (let i = 0; i < this.items[0].length; i++) {
+            text +=String(this.items[i])+'\n'
+        }
+        text+='           -----------------------------\n'
+        console.log(text)
+    }
+    validPlacement(num, row, col) {
+        if (this.isSubSquareValid(num, row, col) && this.isRowValid(num, row, col) && this.isColumnValid(num, row, col)) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    solveSudoku() {
+        for (var row = 0; row < 9; row++) {
+            for (var col = 0; col < 9; col++) {
+                if (this.items[row][col] == 0) {
+                    for (var number = 1; number <= 9; number++) {
+                        if (this.validPlacement(number, row, col)) {
+                            this.items[row][col] = number;
+                            if (this.solveSudoku()) {
+                                return true;
+                            }
+                            else {
+                                this.items[row][col] = 0;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    getSudokuBoard(){
+        return this.items
+    }
+
+}
+/*
 var items = [
     [8, 0, 0, 3, 4, 0, 0, 2, 0],
     [2, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -8,97 +106,12 @@ var items = [
     [0, 0, 0, 0, 0, 3, 0, 6, 0],
     [0, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 2, 5, 0, 1, 9, 0],
-];
-
-function isRowValid(items, num, row, col) {
-    //console.log("row: "+row + ' col: '+col+ ' cell: '+ items[row][col])
-    //console.log(items[0].includes(num));
-    //Check if row includes the number about to be entered into square
-    return !items[row].includes(num);
-}
-
-function isColumnValid(items, num, row, col) {
-    //console.log("row: "+row + ' col: '+col+ ' cell: '+ items[row][col])
-
-    //Check if column has the number about to be entered
-    for (let i = 0; items.length > i; i++) {
-
-        //console.log(items[i][col]);
-
-        if (items[i][col] == num) {
-            return false
-        }
-
-    }
-    return true
-}
-
-function isSubSquareValid(items, num, row, col) {
-    var newcol = 0;
-    var newrow = 0;
-    //console.log("row: "+row + ' col: '+col+ ' cell: '+ items[row][col])
-
-    //console.log(col % 2)
-
-    if (col % 3 != 0) {
-        newcol = col - (col % 3)
-    } else {
-        //console.log('already at correct column')
-        var newcol = col;
-    }
-
-    if (row % 3 != 0) {
-        newrow = row - (row % 3)
-    } else {
-        //console.log('already at correct row')
-        var newrow = row;
-    }
-    var i = newrow
-    var j = newcol
-    for (i = newrow; i < newrow + 3; i++) {
-        for (j = newcol; j < newcol + 3; j++) {
-            
-            if (items[i][j] == num) {
-                return false
-            }
-        }
-    }
-    //console.log(items[i][j])
-    return true
-}
-
-function placeNumber(items,num,row,col){
-    /*
-    if(items[row][col] == 0){
-        
-    
-    if(isSubSquareValid(items,num,row,col) && isRowValid(items,num,row,col) && isColumnValid(items,num,row,col)){
-        items[row][col] = num
-        if(col != 8){
-            placeNumber(items,num,row,col+1)
-        }else{
-            placeNumber(items,num,row+1,0)
-        }
-        
-    }else{
-        if(num == 9){
-            placeNumber(items,1,row,col-1)
-        }else{
-            placeNumber(items,num+1,row,col)
-        }
-        
-    }
-}else{
-    placeNumber(items,num,row,col+1)
-}
-console.log(items)
+  ];
+/*
+const sudokuPuzzle = new sudoku(items);
+sudokuPuzzle.solveSudoku()
+sudokuPuzzle.printSudoku()
 */
-}
-
-placeNumber(items,1,0,0)
-
 module.exports = {
-    isSubSquareValid,
-    isRowValid,
-    isColumnValid
+    sudoku
 }
