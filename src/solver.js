@@ -112,6 +112,4 @@ const sudokuPuzzle = new sudoku(items);
 sudokuPuzzle.solveSudoku()
 sudokuPuzzle.printSudoku()
 */
-module.exports = {
-    sudoku
-}
+export { sudoku as sudoku };
