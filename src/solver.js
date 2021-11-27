@@ -13,8 +13,6 @@ class sudoku {
         //Check if column has the number about to be entered
         for (let i = 0; this.items.length > i; i++) {
 
-
-
             if (this.items[i][col] == num) {
                 return false
             }
